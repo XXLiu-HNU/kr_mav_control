@@ -3,6 +3,7 @@
 #include <ros/console.h>
 #include <tf/transform_datatypes.h>
 
+// 初始化，构造函数
 SO3Control::SO3Control()
     : mass_(0.5),
       g_(9.81),
@@ -13,6 +14,7 @@ SO3Control::SO3Control()
 {
 }
 
+// 设置一些参数
 void SO3Control::setMass(const float mass)
 {
   mass_ = mass;
@@ -32,12 +34,12 @@ void SO3Control::setVelocity(const Eigen::Vector3f &velocity)
 {
   vel_ = velocity;
 }
-
+// 最大积分值
 void SO3Control::setMaxIntegral(const float max_integral)
 {
   max_pos_int_ = max_integral;
 }
-
+// 最大机体积分值
 void SO3Control::setMaxIntegralBody(const float max_integral_b)
 {
   max_pos_int_b_ = max_integral_b;
@@ -54,6 +56,7 @@ void SO3Control::setMaxTiltAngle(const float max_tilt_angle)
     cos_max_tilt_angle_ = std::cos(max_tilt_angle);
 }
 
+// 计算控制量
 void SO3Control::calculateControl(const Eigen::Vector3f &des_pos, const Eigen::Vector3f &des_vel,
                                   const Eigen::Vector3f &des_acc, const Eigen::Vector3f &des_jerk, const float des_yaw,
                                   const float des_yaw_dot, const Eigen::Vector3f &kx, const Eigen::Vector3f &kv,
